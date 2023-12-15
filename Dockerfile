@@ -8,6 +8,8 @@ RUN npm install
 
 RUN npm install express
 
-RUN pm install express body-parser
+RUN npm install express body-parser
+
+RUN npm install dotenv
 
 CMD [ "npm", "start" ]

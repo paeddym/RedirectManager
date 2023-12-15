@@ -1,32 +1,24 @@
-/* const express = require("express");
-const app = express();
-const fs = require("fs");
-const port = 8080;
-const filename = __dirname + "/redirects.json";
-
-app.get();
-
-app.get();
-
-app.delete();
-
-app.post(); */
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs/promises');
 const path = require('path');
+require('dotenv').config();
 
 const app = express();
 const PORT = 3000;
-
+const bearerToken = process.env.BEARER_TOKEN;
 app.use(bodyParser.json());
 
 const dataFilePath = path.join(__dirname, 'redirects.json');
 
 const authenticate = (req, res, next) => {
-  //TODO
-  next();
+    const receivedToken = req.header('Authorization');
+
+    if(receivedToken.substring(7) == bearerToken){
+      next();
+    } else {
+      res.status(401).send('Unauthorized Access');
+    }
 };
 
 
@@ -65,7 +57,7 @@ app.get('/:slug', (req, res) => {
 });
 
 // DELETE /entry/:slug
-app.delete('/entry/:slug', authenticate, (req, res) => {
+app.delete('/entry/:slug', (req, res) => {
   const { slug } = req.params;
 
   fs.readFile(dataFilePath, 'utf8')
@@ -89,7 +81,7 @@ app.delete('/entry/:slug', authenticate, (req, res) => {
 });
 
 
-app.post('/entry', authenticate, (req, res) => {
+app.post('/entry', (req, res) => {
   const { slug, url } = req.body;
 
   fs.readFile(dataFilePath, 'utf8')
