@@ -1,1 +1,16 @@
-Test
+Gruppenmitglieder: Can Dogan (35920), Sascha Vusatjuk (35650), Patrik Marosváry (36043)
+
+Verwendung des redirectManager:
+- Im Browser: localhost:80/[slug] leitet einen zum zur slug zugehörigen URL, falls der Slug in redirects.json vorhanden ist
+- Über Postman:
+    - GET:      localhost:80/entries gibt alle gespeicherten entries aus, solang man das Bearertoken "SecretToken" mitgibt.
+    - POST:     localhost:80/entry als URL, im Body in raw JSON in der Form 
+            {
+              "slug": "[slugname]",
+              "url": "[url zum slug]"
+            }   
+                den neuen redirect mitgeben. Falls die slug Zeile fehlt, wird ein random slug für die URL generiert. 
+    - DELETE:   localhost:80/entry/[slug] löscht den slug und die zugehörige URL
+
+Notiz:
+Persistenz über gelöschte Container nicht erfolgt. 
