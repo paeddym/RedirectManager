@@ -1,7 +1,7 @@
 Gruppenmitglieder: Can Dogan (35920), Sascha Vusatjuk (35650), Patrik Marosváry (36043)
 
 Verwendung des redirectManager:
-- Das Docker-Image mit dem Befehl [docker run ‐d ‐‐name redirect ‐p 80:3000 ‐e PORT=3000 ‐e BEARER_TOKEN=SecretToken redirectmanager] starten
+- Das Docker-Image mit dem Befehl {docker run -d --name redirect -p 80:3000 -v [Hier der absolute Path bis zu RedirektManager/redirects.json]:/usr/src/app/redirects.json -e PORT=3000 -e BEARER_TOKEN=SecretToken redirectmanager}   starten
 - Im Browser: localhost:80/[slug] leitet einen zum zur slug zugehörigen URL, falls der Slug in redirects.json vorhanden ist
 - Über Postman:
     - GET:      localhost:80/entries gibt alle gespeicherten entries aus, solang man das Bearertoken "SecretToken" mitgibt.
@@ -12,6 +12,3 @@ Verwendung des redirectManager:
             }   
                 den neuen redirect mitgeben. Falls die slug Zeile fehlt, wird ein random slug für die URL generiert. 
     - DELETE:   localhost:80/entry/[slug] löscht den slug und die zugehörige URL
-
-Notiz:
-Persistenz über gelöschte Container nicht erfolgt. 
